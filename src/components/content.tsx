@@ -1,17 +1,16 @@
-import React from 'react';
+import { send } from 'process';
+import { stringify } from 'querystring';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import backImg from '../images/bg-shorten-desktop.svg';
 import brandImg from '../images/icon-brand-recognition.svg';
 import detailImg from '../images/icon-detailed-records.svg';
 import fullyImg from '../images/icon-fully-customizable.svg';
-
-
-
-function Content() {
+import ShortedLink from './shortedLink';
 
 const Container= styled.div`
   margin: 0;
-  height: 740px;
+  min-height: 740px;
   background-color: hsl(225, 33%, 95%);
   display: flex;
   flex-direction: column;
@@ -106,6 +105,7 @@ const TabContainer = styled.div`
   background-color: hsl(225, 33%, 95%);
   display: flex;
   margin-top: 70px;
+  padding-bottom: 95px;
 
 `;
 
@@ -155,14 +155,37 @@ margin-top: 128px;
 
 `;
 
+type Links = {shortLink:string, originalLink:string}
 
-const onSubmit = () =>{
-    let inputed="";
-    const result = fetch('https://api.shrtco.de/v2/'+inputed,{
-        mode:'cors',
-        method:'POST'
-    })
-    return result;
+function Content() {
+
+
+
+const [input, setInput] = useState("");
+const [isLoading, setIsLoading] = useState(false)
+const [urlLink, setUrlLink] = useState([]as Links[]);
+
+
+const handleSubmit = async () =>{
+  if(input === ""){
+    return alert("Please add a link");
+  }
+  setIsLoading(true)
+    const result = await fetch('https://api.shrtco.de/v2/shorten?url='+input,{
+        mode: 'cors',
+        method:'GET'
+    }).then(res => res.json())
+    .catch(error=>alert(error(error)))
+
+    try{
+      setUrlLink([...urlLink, {shortLink:result.result.short_link, originalLink:result.result.original_link}])
+    }
+    catch(err){
+      alert("There was an error in your input. Please try again ")
+      setIsLoading(false)   
+    }
+
+    setIsLoading(false)    
 }
 
 
@@ -171,9 +194,17 @@ const onSubmit = () =>{
     <div>
       <Container>
         <InputContainer id="content-div">
-            <Input placeholder="Shorten a link here..."></Input>
-            <Start onClick={onSubmit}>Shorten It!</Start>
+            <Input value={input} onKeyDown={(e) => (e.key === 'Enter') && handleSubmit()} onChange={(e) => setInput(e.currentTarget.value)} placeholder="Shorten a link here..."></Input>
+            <Start onClick={isLoading ? () => alert("this will take some time...") : handleSubmit}>{isLoading ? 'Loading...' : 'Shorten It!'}</Start>
         </InputContainer>
+
+        {urlLink.map((links)=> { 
+            return <ShortedLink link={links}></ShortedLink>
+        })}
+        
+        
+
+
 
         <ContainerText>
             <HeadLine id="header">Advanced Statistics</HeadLine>

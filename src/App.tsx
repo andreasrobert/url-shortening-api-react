@@ -1,31 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import styled from 'styled-components';
 import Header from './components/header';
 import Context from './components/context';
 import Content from './components/content';
-import Footer from './components/footer'
+import Footer from './components/footer';
+import PopUp from './components/popUp';
 
 
 function App() {
 
-const Headers= styled.div`
-  width: 10px;
-  height: 10px;
-  background-color: blue;
+  const[popUp, setPopUp] = useState(false);
 
-
-
-`;
+    const handlePopUp = () =>{
+        setPopUp(prev => !prev);
+    };
 
 
   return (
     <>
     <div>
-      <Header/>
+      <Header handlePopUp={handlePopUp}/>
       <Context/>
       <Content/>      
-      <Footer/>
+      <Footer handlePopUp={handlePopUp}/>
+      <PopUp popUp={popUp} handlePopUp={handlePopUp}/>
 
     </div>
 

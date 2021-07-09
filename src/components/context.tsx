@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import backgroundImg from '../images/illustration-working.svg'
 
-function Context() {
-
 const Container= styled.div`
   margin: 0 ;
   height: 700px;
@@ -33,10 +31,16 @@ const ContainerImage= styled.div`
 const Logo = styled.image`
   background-image: url(${backgroundImg});
   background-repeat: no-repeat;
-  height: 485px;
-  min-width: 600px;
+  background-size: cover;
+  /* height: 485px;
+  min-width: 600px; */
   margin-top: 60px;
   /* position: absolute; */
+
+  height: 31.5vw;
+  width: 39vw;
+  max-height: 485px;
+  max-width: 600px;
 
 `;
 
@@ -75,7 +79,7 @@ cursor: pointer;
 `;
 
 
-
+function Context() {
 
   return (
     <>

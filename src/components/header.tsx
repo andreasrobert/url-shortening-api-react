@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import logoImg from '../images/logo.svg'
 
-function Header() {
 
 const Container= styled.div`
   margin: 0 ;
@@ -55,17 +54,19 @@ cursor: pointer;
 `;
 
 
+function Header(props: {handlePopUp:()=> void }) {
+
   return (
     <>
     <div id="go-up">
       <Container>
           <Logo></Logo>
-        <Details>Features</Details>
-        <Details>Pricing</Details>
-        <Details>Resources</Details>
+        <Details  onClick={props.handlePopUp}>Features</Details>
+        <Details  onClick={props.handlePopUp}>Pricing</Details>
+        <Details onClick={props.handlePopUp}>Resources</Details>
         <Auth>
-            <Details>Login</Details>
-            <SignUp>Sign Up</SignUp>
+            <Details onClick={props.handlePopUp}>Login</Details>
+            <SignUp onClick={props.handlePopUp}>Sign Up</SignUp>
         </Auth>
         
 

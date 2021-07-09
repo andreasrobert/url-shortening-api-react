@@ -7,9 +7,6 @@ import twitterImg from '../images/icon-twitter.svg';
 import pinterestImg from '../images/icon-pinterest.svg';
 import instagramImg from '../images/icon-instagram.svg';
 
-
-function Footer() {
-
 const Container= styled.div`
   margin: 0 ;
   height: 589px;
@@ -75,7 +72,7 @@ const Logo = styled.image`
   cursor: pointer;
 `;
 
-const Images =styled.image`
+const Images =styled.a`
 background-image: url(${facebookImg});
 background-repeat: no-repeat;
 height: 30px;
@@ -96,7 +93,7 @@ cursor: pointer;
     }
 `;
 
-const Details = styled.p`
+const DetailsStyle = styled.p`
 color:hsl(257, 7%, 63%);
 font-size: small;
 font-weight: 500;
@@ -106,7 +103,6 @@ cursor: pointer;
 &#top{
     margin-top: 33px;
 }
-
 `;
 
 const DetailsContainer = styled.div`
@@ -135,6 +131,11 @@ padding-right: 75px;
 
 `;
 
+
+function Footer({ handlePopUp }: { handlePopUp: () => void }) {
+  const Details = (props: { id?: string; children: React.ReactNode }) => (
+    <DetailsStyle onClick={handlePopUp} {...props} />
+  )
 
 
 
@@ -173,10 +174,10 @@ padding-right: 75px;
             </Company>
 
             <DetailsContainer>
-            <Images id="facebook"></Images>
-            <Images id="twitter"></Images>
-            <Images id="pinterest"></Images>
-            <Images id="instagram"></Images>
+            <Images id="facebook" href="https://www.facebook.com"/>
+            <Images id="twitter" href="https://www.twitter.com"/>
+            <Images id="pinterest" href="https://www.pinterest.com"/>
+            <Images id="instagram" href="https://www.instagram.com"/>
             </DetailsContainer>
 
             </DetailsContainer>
