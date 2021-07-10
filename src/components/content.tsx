@@ -1,5 +1,3 @@
-import { send } from 'process';
-import { stringify } from 'querystring';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import backImg from '../images/bg-shorten-desktop.svg';
